@@ -1,8 +1,9 @@
 import React from 'react';
+import {createTheme, ThemeProvider} from "@mui/material";
+import { Outlet } from 'react-router-dom';
+
 import './App.css';
 import {CustomAppBar} from "../CustomAppBar/CustomAppBar";
-import {createTheme, ThemeProvider} from "@mui/material";
-import Typography from "@mui/material/Typography";
 
 const globalTheme = createTheme({
     palette: {
@@ -15,9 +16,9 @@ function App() {
         <div className={'App'}>
             <ThemeProvider theme={globalTheme}>
                 <CustomAppBar title={"Workout Tracker"}/>
-                <Typography variant="h1" component="div" sx={{flexGrow: 1}}>
-                    Workout Tracker
-                </Typography>
+                <div>
+                    <Outlet />
+                </div>
             </ThemeProvider>
         </div>
     );
