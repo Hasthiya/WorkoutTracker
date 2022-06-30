@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { Provider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
 import './index.css';
 import App from './Components/App/App';
 import {HomePage} from "./Pages/HomePage/HomePage";
 import {SettingsPage} from "./Pages/SettingsPage/SettingsPage";
+import {store} from "./State";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -14,12 +16,14 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <BrowserRouter>
-          <Routes>
-              <Route path="/" element={<App />}>
-                  <Route path="home" element={<HomePage />}/>
-                  <Route path="settings" element={<SettingsPage />}/>
-              </Route>
-          </Routes>
+          <Provider store={store}>
+              <Routes>
+                  <Route path="/" element={<App />}>
+                      <Route path="home" element={<HomePage />}/>
+                      <Route path="settings" element={<SettingsPage />}/>
+                  </Route>
+              </Routes>
+          </Provider>
       </BrowserRouter>
   </React.StrictMode>
 );

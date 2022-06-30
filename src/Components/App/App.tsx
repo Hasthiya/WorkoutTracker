@@ -15,7 +15,7 @@ function App() {
     return (
         <div className={'App'}>
             <ThemeProvider theme={globalTheme}>
-                <CustomAppBar title={"Workout Tracker"}/>
+                <CustomAppBar title={"Temp"}/>
                 <div>
                     <Outlet />
                 </div>
