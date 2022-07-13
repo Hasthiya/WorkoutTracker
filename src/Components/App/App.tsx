@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {createTheme, ThemeProvider} from "@mui/material";
+import {ThemeProvider} from "@mui/material";
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import './App.css';
@@ -9,12 +9,7 @@ import {HomePage} from "../../Pages/HomePage/HomePage";
 import {SettingsPage} from "../../Pages/SettingsPage/SettingsPage";
 import WorkoutTracker from "../WorkoutTracker/WorkoutTracker";
 import {NotFoundPage} from "../../Pages/NotFoundPage/NotFoundPage";
-
-const globalTheme = createTheme({
-    palette: {
-        mode: 'light',
-    },
-});
+import globalTheme from "../../Modules/Theme/globalTheme";
 
 function App() {
 
