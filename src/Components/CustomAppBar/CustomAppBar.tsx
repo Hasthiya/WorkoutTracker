@@ -1,15 +1,20 @@
 import React, {FC} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigate} from "react-router-dom";
 import {bindActionCreators} from "redux";
-import Box from '@mui/material/Box';
-import AppBar from '@mui/material/AppBar';
-import IconButton from '@mui/material/IconButton';
+import {
+    Box,
+    AppBar,
+    IconButton,
+    Typography,
+    Button,
+    Toolbar
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Toolbar from '@mui/material/Toolbar';
+
 import User from "../../Types/User";
 import {actionCreators, State} from "../../State/index";
+import {logOut} from "../../Modules/Auth/functions";
 
 type CustomAppBarProps = {
     title: string
@@ -19,6 +24,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
     const dispatch = useDispatch();
     const {AuthUser} = bindActionCreators(actionCreators, dispatch);
     const userState = useSelector((state: State) => state.user);
+    let navigate = useNavigate();
 
     const user: User = {
         isLoggedIn: !userState.isLoggedIn,
@@ -38,6 +44,9 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
                         color="inherit"
                         aria-label="menu"
                         sx={{mr: 2}}
+                        onClick={() => {
+                            navigate("/home")
+                        }}
                     >
                         <MenuIcon/>
                     </IconButton>
@@ -45,7 +54,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
                         {title}
                     </Typography>
                     <Button color="inherit"
-                            onClick={() => onLoginClick()}>{userState.isLoggedIn ? 'logout' : 'login'}</Button>
+                            onClick={() => logOut()}>{'logout'}</Button>
                 </Toolbar>
             </AppBar>
         </Box>
