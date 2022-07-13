@@ -1,22 +1,57 @@
 import React, {FC, useState} from 'react';
-import {Box, Button, TextField, Typography} from "@mui/material";
+import {Alert, Box, Button, TextField, Typography} from "@mui/material";
+
 import {signIn} from "../../Modules/Auth/functions";
+
+type LoginErrorProps = {
+    isLoginError: boolean,
+    loginErrorText: string | null,
+};
 
 export const LoginPage: FC = () => {
     const [email, setEmail] = useState<string | null>(null);
+    const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
+    const [emailErrorText, setEmailErrorText] = useState<string | null>(null);
+
     const [password, setPassword] = useState<string | null>(null);
+    const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
+    const [passwordErrorText, setPasswordErrorText] = useState<string | null>(null);
+
+    const [isLoginError, setIsLoginError] = useState<boolean>(false);
+    const [loginErrorText, setLoginErrorText] = useState<any>(null);
+
 
     const loginOnClick = async (email: string | null, password: string | null) => {
         try {
-            if (email === null) {
-                console.log("userName is null")
-            } else if (password === null) {
-                console.log("passWord is null")
+            setIsLoginError(false);
+            if (email === null || email === "") {
+                setIsEmailValid(true);
+                setEmailErrorText("Email cannot be empty");
+            } else if (password === null || password === "") {
+                setIsPasswordValid(true);
+                setPasswordErrorText("Password cannot be empty");
             } else {
-                const signInResponse = await signIn(email, password)
+                setIsEmailValid(false);
+                setEmailErrorText(null);
+                setIsPasswordValid(false);
+                setPasswordErrorText(null);
+                await signIn(email, password)
             }
         } catch (e) {
-            console.log(e)
+            console.log(e);
+            setIsLoginError(true);
+            setLoginErrorText(e);
+
+        }
+    };
+
+    const LoginError = ({isLoginError, loginErrorText}: LoginErrorProps): JSX.Element => {
+        if (isLoginError) {
+            return (
+                <Alert sx={styles.errorAlert} severity="error">{loginErrorText}</Alert>
+            )
+        } else {
+            return <aside/>
         }
     };
 
@@ -31,10 +66,13 @@ export const LoginPage: FC = () => {
                     </Box>
                     <TextField onChange={(e) => {
                         setEmail(e.target.value)
-                    }} sx={styles.textBox} label="E Mail" variant="outlined"/>
+                    }} sx={styles.textBox} label="E Mail" variant="outlined" error={isEmailValid}
+                               helperText={emailErrorText}/>
                     <TextField onChange={(e) => {
                         setPassword(e.target.value)
-                    }} sx={styles.textBox} label="Password" variant="outlined"/>
+                    }} sx={styles.textBox} label="Password" variant="outlined" error={isPasswordValid}
+                               helperText={passwordErrorText}/>
+                    <LoginError isLoginError={isLoginError} loginErrorText={loginErrorText}/>
                     <Button onClick={() => {
                         loginOnClick(email, password)
                     }} variant="contained" size={"large"} sx={styles.loginButton}>Login</Button>
@@ -71,5 +109,8 @@ const styles = {
     },
     headerText: {
         marginBottom: 4,
+    },
+    errorAlert: {
+        margin: 1,
     }
 };

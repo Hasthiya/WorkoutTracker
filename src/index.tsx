@@ -10,7 +10,6 @@ import {HomePage} from "./Pages/HomePage/HomePage";
 import {SettingsPage} from "./Pages/SettingsPage/SettingsPage";
 import {store} from "./State";
 import {AuthProvider} from "./Modules/Auth/AuthProvider";
-import {LoginPage} from "./Pages/LoginPage/LoginPage";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
