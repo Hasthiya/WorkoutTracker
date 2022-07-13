@@ -1,11 +1,14 @@
 import React, {useContext} from 'react';
 import {createTheme, ThemeProvider} from "@mui/material";
-import {Outlet} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import './App.css';
-import {CustomAppBar} from "../CustomAppBar/CustomAppBar";
 import {AuthContext} from "../../Modules/Auth/AuthContext";
 import {LoginPage} from "../../Pages/LoginPage/LoginPage";
+import {HomePage} from "../../Pages/HomePage/HomePage";
+import {SettingsPage} from "../../Pages/SettingsPage/SettingsPage";
+import WorkoutTracker from "../WorkoutTracker/WorkoutTracker";
+import {NotFoundPage} from "../../Pages/NotFoundPage/NotFoundPage";
 
 const globalTheme = createTheme({
     palette: {
@@ -20,15 +23,20 @@ function App() {
     return (
         <div className={'App'}>
             <ThemeProvider theme={globalTheme}>
-                {!user ?
-                    <LoginPage/>
-                    :
-                    <aside>
-                        <CustomAppBar title={"temp"}/>
-                        <div>
-                            <Outlet/>
-                        </div>
-                    </aside>}
+                <BrowserRouter>
+                    <Routes>
+                        {user ?
+                            <Route path="/" element={<WorkoutTracker/>}>
+                                <Route path="home" element={<HomePage/>}/>
+                                <Route path="settings" element={<SettingsPage/>}/>
+                                <Route path="settings" element={<SettingsPage/>}/>
+                                <Route path="*" element={<NotFoundPage/>}/>
+                            </Route>
+                            :
+                            <Route path="/login" element={<LoginPage/>}/>
+                        }
+                    </Routes>
+                </BrowserRouter>
             </ThemeProvider>
         </div>
     );

@@ -24,7 +24,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
     const dispatch = useDispatch();
     const {AuthUser} = bindActionCreators(actionCreators, dispatch);
     const userState = useSelector((state: State) => state.user);
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const user: User = {
         isLoggedIn: !userState.isLoggedIn,
@@ -32,6 +32,11 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
 
     const onLoginClick = () => {
         AuthUser(user)
+    };
+
+    const onLogoutClicked = () => {
+        logOut(); //TODO: handle navigation after successful logout ::HASTHI
+        navigate("/login")
     };
 
     return (
@@ -54,7 +59,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
                         {title}
                     </Typography>
                     <Button color="inherit"
-                            onClick={() => logOut()}>{'logout'}</Button>
+                            onClick={() => onLogoutClicked()}>{'logout'}</Button>
                 </Toolbar>
             </AppBar>
         </Box>
