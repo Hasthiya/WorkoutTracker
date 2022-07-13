@@ -18,13 +18,14 @@ import {logOut} from "../../Modules/Auth/functions";
 
 type CustomAppBarProps = {
     title: string
+    setOpen: (open: boolean) => void
 }
 
-export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
+export const CustomAppBar: FC<CustomAppBarProps> = ({title, setOpen}) => {
     const dispatch = useDispatch();
     const {AuthUser} = bindActionCreators(actionCreators, dispatch);
     const userState = useSelector((state: State) => state.user);
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     const user: User = {
         isLoggedIn: !userState.isLoggedIn,
@@ -32,6 +33,11 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
 
     const onLoginClick = () => {
         AuthUser(user)
+    };
+
+    const onLogoutClicked = () => {
+        logOut(); //TODO: handle navigation after successful logout ::HASTHI
+        navigate("/login")
     };
 
     return (
@@ -45,7 +51,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
                         aria-label="menu"
                         sx={{mr: 2}}
                         onClick={() => {
-                            navigate("/home")
+                            setOpen(true)
                         }}
                     >
                         <MenuIcon/>
@@ -54,7 +60,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title}) => {
                         {title}
                     </Typography>
                     <Button color="inherit"
-                            onClick={() => logOut()}>{'logout'}</Button>
+                            onClick={() => onLogoutClicked()}>{'logout'}</Button>
                 </Toolbar>
             </AppBar>
         </Box>

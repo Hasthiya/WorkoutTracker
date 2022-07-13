@@ -1,4 +1,5 @@
 import React, {FC, useState} from 'react';
+import {useNavigate} from "react-router-dom";
 import {Alert, Box, Button, TextField, Typography} from "@mui/material";
 
 import {signIn} from "../../Modules/Auth/functions";
@@ -20,6 +21,7 @@ export const LoginPage: FC = () => {
     const [isLoginError, setIsLoginError] = useState<boolean>(false);
     const [loginErrorText, setLoginErrorText] = useState<any>(null);
 
+    const navigate = useNavigate();
 
     const loginOnClick = async (email: string | null, password: string | null) => {
         try {
@@ -35,7 +37,8 @@ export const LoginPage: FC = () => {
                 setEmailErrorText(null);
                 setIsPasswordValid(false);
                 setPasswordErrorText(null);
-                await signIn(email, password)
+                await signIn(email, password);
+                navigate("/home")
             }
         } catch (e) {
             console.log(e);
@@ -60,7 +63,7 @@ export const LoginPage: FC = () => {
             <Box sx={styles.loginContainer}>
                 <Box sx={styles.loginColumn}>
                     <Box sx={styles.headerText}>
-                        <Typography variant={"h3"}>
+                        <Typography variant={"h3"} color={"primary"}>
                             {"Welcome to \n Workout Tracker"}
                         </Typography>
                     </Box>
