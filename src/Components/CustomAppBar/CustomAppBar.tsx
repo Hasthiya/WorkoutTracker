@@ -31,6 +31,7 @@ export const CustomAppBar: FC<CustomAppBarProps> = ({title, setOpen}) => {
         isLoggedIn: !userState.isLoggedIn,
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const onLoginClick = () => {
         AuthUser(user)
     };
