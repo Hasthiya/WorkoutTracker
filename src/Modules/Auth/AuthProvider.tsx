@@ -19,7 +19,7 @@ export const AuthProvider: FC<Props> = ({children}: Props) => {
         return auth.onAuthStateChanged((firebaseUser) => {
             setUser(firebaseUser);
         });
-    }, []);
+    },);
 
     return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
