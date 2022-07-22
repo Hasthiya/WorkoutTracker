@@ -9,10 +9,10 @@ import {HomePage} from "../../Pages/HomePage/HomePage";
 import {SettingsPage} from "../../Pages/SettingsPage/SettingsPage";
 import WorkoutTracker from "../WorkoutTracker/WorkoutTracker";
 import {NotFoundPage} from "../../Pages/NotFoundPage/NotFoundPage";
+import { WelcomePage } from '../../Pages/WelcomPage/WelcomePage';
 import globalTheme from "../../Modules/Theme/globalTheme";
 
 function App() {
-
     const user = useContext(AuthContext);
 
     return (
@@ -28,7 +28,10 @@ function App() {
                                 <Route path="*" element={<NotFoundPage/>}/>
                             </Route>
                             :
-                            <Route path="/login" element={<LoginPage/>}/>
+                            <Route>
+                                <Route path="/login" element={<LoginPage/>}/>
+                                <Route path="*" element={<WelcomePage/>}/>
+                            </Route>
                         }
                     </Routes>
                 </BrowserRouter>

@@ -70,7 +70,10 @@ export const LoginPage: FC = () => {
                 <Box sx={styles.loginColumn}>
                     <Box sx={styles.headerText}>
                         <Typography variant={"h3"} color={"primary"}>
-                            {"Welcome to \n Workout Tracker"}
+                            {"Login to"}
+                        </Typography>
+                        <Typography variant={"h3"} color={"primary"}>
+                            {"Workout Tracker"}
                         </Typography>
                     </Box>
                     <TextField onChange={(e) => {
