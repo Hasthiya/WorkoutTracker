@@ -40,10 +40,16 @@ export const LoginPage: FC = () => {
                 await signIn(email, password);
                 navigate("/home")
             }
-        } catch (e) {
-            console.log(e);
-            setIsLoginError(true);
-            setLoginErrorText(e);
+        } catch (err) {
+            if (err instanceof Error) {
+                console.log(err);
+                setIsLoginError(true);
+                setLoginErrorText(err.message);
+            } else {
+                console.log('Unexpected error', err);
+                setIsLoginError(true);
+                setLoginErrorText("Unexpected error occurred");
+            }
 
         }
     };
