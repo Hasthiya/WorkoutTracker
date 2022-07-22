@@ -11,13 +11,13 @@ export const signIn = async (email: string, password: string) => {
         const errorCode: string = error.code;
         switch (errorCode) {
             case "auth/user-not-found":
-                throw new TypeError("Email not found");
+                throw new Error("Email not found");
             case "auth/wrong-password":
-                throw new TypeError("Password is wrong");
+                throw new Error("Password is wrong");
             case "auth/invalid-email":
-                throw new TypeError("Invalid Email");
+                throw new Error("Invalid Email");
             default:
-                throw new TypeError("Error");
+                throw new Error("Error");
         }
     }
 };
