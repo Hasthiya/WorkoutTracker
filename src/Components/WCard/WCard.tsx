@@ -10,7 +10,7 @@ export const WCard: FC<Props> = ({children = <aside/>, title}) => {
     return (
         <aside>
             <Box sx={styles.cardWrapper}>
-                <Typography variant="h4" sx={styles.header}>
+                <Typography variant="h5" sx={styles.header}>
                     {title}
                 </Typography>
                 <Box sx={styles.body}>
@@ -27,7 +27,7 @@ const styles = {
     },
     header: {
         padding: 2,
-        paddingBottom: 1,
+        paddingBottom: 0,
     },
     body: {
         padding: 2,
