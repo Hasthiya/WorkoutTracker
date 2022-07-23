@@ -5,6 +5,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 
 export const WelcomePage: FC = () => {
     const [showLoader, setShowLoader] = useState<boolean>(true);
+    //todo: get loader state from auth context: HASTHI
     const navigate = useNavigate();
 
     useEffect(() => {

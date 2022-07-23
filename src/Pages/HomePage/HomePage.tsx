@@ -1,13 +1,33 @@
 import React, {FC} from 'react';
-import Typography from '@mui/material/Typography';
+import {Grid, Box, Typography} from "@mui/material";
+import {WCard} from "../../Components/WCard/WCard";
+import {WorkoutsTabs} from "../../Components/WorkoutTabs/WorkoutTabs";
 
 export const HomePage: FC = () => {
     return (
         <aside>
-            <Typography variant="h1" component="div" sx={{flexGrow: 1}}>
-                'Home Page'
-            </Typography>
+            <Box sx={styles.homeContentWrapper}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12} md={6}>
+                        <WCard title={"Workouts"}>
+                            <WorkoutsTabs/>
+                        </WCard>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <WCard title={"Personal Info"}>
+                            <Typography variant="body1">
+                                {"This is your personal information"}
+                            </Typography>
+                        </WCard>
+                    </Grid>
+                </Grid>
+            </Box>
         </aside>
     );
 };
 
+const styles = {
+    homeContentWrapper: {
+        flexGrow: 1
+    },
+};
